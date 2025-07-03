@@ -26,5 +26,6 @@
 		"resolution": "1080p",
 		"duration_multiplier": 1.0,
 		"transition_duration": 1.0
-	}
+	},
+	"comfyui_path": "D:\\ComfyUI\\run_comfyui.bat"
 }

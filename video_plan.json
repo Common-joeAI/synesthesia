@@ -1,1 +1,296 @@
-{}
+{
+  "metadata": {
+    "audio_path": "backend/uploads\\input.mp3",
+    "title": "Untitled Track",
+    "duration": 180
+  },
+  "segments": [
+    {
+      "start_time": 0,
+      "end_time": 3,
+      "prompt": "uplifting biblical scene: In this quiet space, we find our grace,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 3,
+      "end_time": 6,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 6,
+      "end_time": 9,
+      "prompt": "uplifting biblical scene: With whispered promises, in every trace.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 9,
+      "end_time": 12,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 12,
+      "end_time": 15,
+      "prompt": "uplifting biblical scene: Where you go I will go, I\u2019ll never stray,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 15,
+      "end_time": 18,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 18,
+      "end_time": 21,
+      "prompt": "uplifting biblical scene: Your heart is my home, come what may.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 21,
+      "end_time": 24,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 24,
+      "end_time": 27,
+      "prompt": "uplifting biblical scene: With every step, our shadows merge,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 27,
+      "end_time": 30,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 30,
+      "end_time": 33,
+      "prompt": "uplifting biblical scene: In kindred whispers, our souls emerge.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 33,
+      "end_time": 36,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 36,
+      "end_time": 39,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 39,
+      "end_time": 42,
+      "prompt": "uplifting biblical scene: Where you lead, I follow with my heart,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 42,
+      "end_time": 45,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 45,
+      "end_time": 48,
+      "prompt": "uplifting biblical scene: In this journey together, we\u2019ll never part.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 48,
+      "end_time": 51,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 51,
+      "end_time": 54,
+      "prompt": "uplifting biblical scene: Redemption shines in every loving glance,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 54,
+      "end_time": 57,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 57,
+      "end_time": 60,
+      "prompt": "uplifting biblical scene: Wrapped in peace, let\u2019s take this chance.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 60,
+      "end_time": 63,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 63,
+      "end_time": 66,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 66,
+      "end_time": 69,
+      "prompt": "uplifting biblical scene: Through the storms and the trials we face,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 69,
+      "end_time": 72,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 72,
+      "end_time": 75,
+      "prompt": "uplifting biblical scene: Your people will be my people, in every place.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 75,
+      "end_time": 78,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 78,
+      "end_time": 81,
+      "prompt": "uplifting biblical scene: With loyalty stitched in every tear,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 81,
+      "end_time": 84,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 84,
+      "end_time": 87,
+      "prompt": "uplifting biblical scene: Together we\u2019ll rise, conquering fear.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 87,
+      "end_time": 90,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 90,
+      "end_time": 93,
+      "prompt": "uplifting biblical scene: In the melody of trust, let\u2019s dance,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 93,
+      "end_time": 96,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 96,
+      "end_time": 99,
+      "prompt": "uplifting biblical scene: With kindness as our everlasting chance.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 99,
+      "end_time": 102,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 102,
+      "end_time": 105,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 105,
+      "end_time": 108,
+      "prompt": "uplifting biblical scene: Where you lead, I follow with my heart,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 108,
+      "end_time": 111,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 111,
+      "end_time": 114,
+      "prompt": "uplifting biblical scene: In this journey together, we\u2019ll never part.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 114,
+      "end_time": 117,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 117,
+      "end_time": 120,
+      "prompt": "uplifting biblical scene: Redemption shines in every loving glance,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 120,
+      "end_time": 123,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 123,
+      "end_time": 126,
+      "prompt": "uplifting biblical scene: Wrapped in peace, let\u2019s take this chance.",
+      "transition": "fade"
+    },
+    {
+      "start_time": 126,
+      "end_time": 129,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 129,
+      "end_time": 132,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 132,
+      "end_time": 135,
+      "prompt": "uplifting biblical scene: With you by my side, we\u2019ll find our way,",
+      "transition": "fade"
+    },
+    {
+      "start_time": 135,
+      "end_time": 138,
+      "prompt": "uplifting biblical scene: ",
+      "transition": "fade"
+    },
+    {
+      "start_time": 138,
+      "end_time": 141,
+      "prompt": "uplifting biblical scene: In this love, forever we\u2019ll stay.",
+      "transition": "fade"
+    }
+  ],
+  "style_settings": {
+    "color_palette": "warm",
+    "visual_intensity": 0.8,
+    "biblical_era": "judges"
+  }
+}

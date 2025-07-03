@@ -13,10 +13,20 @@ def run_pipeline_thread(config_path):
     global STATUS
     STATUS["state"] = "running"
 
+    # Define paths for uploaded files
+    mp3_path = os.path.join(UPLOAD_DIR, "input.mp3")
+    lyrics_path = os.path.join(UPLOAD_DIR, "lyrics.txt")
+
     os.makedirs("backend", exist_ok=True)
+
     with open(LOG_PATH, "w") as log_file:
         process = subprocess.Popen(
-            ["python", "main.py", "--config", config_path],
+            [
+                "python", "main.py",
+                "--config", config_path,
+                "--mp3", mp3_path,
+                "--lyrics", lyrics_path
+            ],
             stdout=log_file,
             stderr=subprocess.STDOUT
         )
