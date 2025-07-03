@@ -1,38 +1,43 @@
-import json
-import subprocess
-import paramiko
+import os
+import requests
 import time
-from secrets_manager import load_credentials
 
-def launch_instance():
-    print("🚀 Launching Lambda Cloud GH200 instance...")
-    # Placeholder: integrate with Lambda API or use CLI
-    time.sleep(2)
-    return "gh200-instance-id"
+API_BASE = "https://cloud.lambdalabs.com/api/v1"
+LAMBDA_API_KEY = os.getenv("LAMBDA_API_KEY")
+HEADERS = {"Authorization": f"Bearer {LAMBDA_API_KEY}"}
 
-def attach_storage(instance_id):
-    print(f"💾 Attaching storage to instance {instance_id}...")
-    time.sleep(1)
 
-def ssh_and_run(instance_ip, ssh_key_path, cmd):
-    print(f"🔐 Running remote command on {instance_ip}: {cmd}")
-    ssh = paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    creds = load_credentials()
-    ssh.connect(instance_ip, username='ubuntu', key_filename=ssh_key_path)
-    stdin, stdout, stderr = ssh.exec_command(cmd)
-    print(stdout.read().decode())
-    ssh.close()
+def create_instance(instance_type="gpu-1x-a10", region="us-east-1", ssh_key="default"):
+    response = requests.post(
+        f"{API_BASE}/instance-operations/launch",
+        headers=HEADERS,
+        json={
+            "instance_type": instance_type,
+            "region": region,
+            "ssh_key_names": [ssh_key],
+            "file_system_names": [],
+            "quantity": 1
+        }
+    )
+    response.raise_for_status()
+    return response.json()["data"]["instance_ids"][0]
 
-def download_results(instance_ip, ssh_key_path):
-    print("⬇️ Downloading results from remote...")
-    os.makedirs("downloaded_output", exist_ok=True)
-    subprocess.run([
-        "scp", "-i", ssh_key_path,
-        f"ubuntu@{instance_ip}:/home/ubuntu/output/*.mp4",
-        "./downloaded_output/"
-    ])
+
+def wait_for_instance(instance_id):
+    while True:
+        response = requests.get(f"{API_BASE}/instances/{instance_id}", headers=HEADERS)
+        data = response.json()["data"]
+        status = data["status"]
+        if status == "active":
+            return data["ip"]
+        elif status == "failed":
+            raise RuntimeError("Instance startup failed.")
+        time.sleep(10)
+
 
 def terminate_instance(instance_id):
-    print(f"💀 Terminating instance {instance_id}...")
-    time.sleep(1)
+    requests.post(
+        f"{API_BASE}/instance-operations/terminate",
+        headers=HEADERS,
+        json={"instance_ids": [instance_id]}
+    )
