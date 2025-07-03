@@ -1,38 +1,42 @@
-
 import hashlib
 import json
-from typing import List, Dict, Tuple
+import random
 
 class PromptGenerator:
-    def __init__(self, global_style: str = "biblical", character_desc: str = "", quality_tags: str = ""):
+    def __init__(self, global_style='biblical', creativity=0.7):
         self.global_style = global_style
-        self.character_desc = character_desc
-        self.quality_tags = quality_tags
+        self.creativity = creativity
 
-    def hash_prompt(self, text: str) -> str:
-        return hashlib.sha256(text.encode("utf-8")).hexdigest()
+    def _hash_prompt(self, prompt):
+        return hashlib.sha256(prompt.encode('utf-8')).hexdigest()
 
-    def generate_prompts(self, aligned_transcription: Dict, mood_tags: List[str], bible_context: str = "") -> List[Dict]:
-        prompts = []
-        segments = aligned_transcription.get("segments", [])
-        mood = ", ".join(mood_tags)
+    def generate_prompt(self, segment, extra_context=None):
+        if segment['type'] == 'instrumental':
+            mood = segment.get('mood', 'ambient')
+            base_prompt = f"A sweeping biblical landscape, {mood} mood, {self.global_style} style"
+        else:
+            text = segment.get('text', '')
+            mood = segment.get('mood', 'dynamic')
+            base_prompt = f"{text}. Style: {self.global_style}, mood: {mood}"
 
-        for i, seg in enumerate(segments):
-            words = seg.get("text", "").strip()
-            if not words:
-                continue
+        if extra_context:
+            base_prompt += f", context: {extra_context}"
 
-            scene_prompt = {
-                "start": seg["start"],
-                "end": seg["end"],
-                "text": words,
-                "mood": mood,
-                "prompt": self.compose_prompt(words, mood, bible_context),
-                "hash": self.hash_prompt(words + mood + bible_context)
+        return {
+            "prompt": base_prompt,
+            "hash": self._hash_prompt(base_prompt)
+        }
+
+    def generate_all_prompts(self, lyrics_map, extra_context=None):
+        return [
+            {
+                **seg,
+                **self.generate_prompt(seg, extra_context)
             }
-            prompts.append(scene_prompt)
-        return prompts
+            for seg in lyrics_map
+        ]
 
-    def compose_prompt(self, text: str, mood: str, bible_context: str) -> str:
-        base = f"{self.quality_tags}, {self.character_desc}, {self.global_style} style"
-        return f"{text} — mood: {mood}, theme: {bible_context}, visual: {base}".strip()
+    def export_prompt_log(self, prompts, output_path='prompt_log.json'):
+        with open(output_path, 'w') as f:
+            json.dump(prompts, f, indent=2)
+        return output_path
