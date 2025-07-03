@@ -1,30 +1,54 @@
-
 import os
-import torch
-import torchaudio
-import whisperx
+import json
+import subprocess
+import tempfile
 import librosa
-import musicnn.extractor as extractor
-from typing import Tuple, Dict, List
+import numpy as np
+from whisper import load_model
 
 class AudioProcessor:
-    def __init__(self, device: str = "cuda" if torch.cuda.is_available() else "cpu"):
-        self.device = device
-        self.whisper_model = whisperx.load_model("large-v3", device=self.device)
-    
-    def transcribe_and_align(self, audio_path: str) -> Dict:
-        audio = whisperx.load_audio(audio_path)
-        result = self.whisper_model.transcribe(audio, batch_size=16)
-        model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=self.device)
-        result_aligned = whisperx.align(result["segments"], model_a, metadata, audio, self.device, return_char_alignments=False)
-        return result_aligned
+    def __init__(self, audio_path):
+        self.audio_path = audio_path
+        self.transcription = []
+        self.beats = []
 
-    def analyze_mood(self, audio_path: str) -> List[str]:
-        tags = extractor.extract(audio_path, model='MTT_musicnn', input_length=3, verbose=0)
-        top_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)[:5]
-        return [tag for tag, _ in top_tags]
+    def transcribe(self, model_size='base'):
+        model = load_model(model_size)
+        result = model.transcribe(self.audio_path, word_timestamps=True)
+        self.transcription = result.get('segments', [])
+        return self.transcription
 
-    def process(self, audio_path: str) -> Tuple[Dict, List[str]]:
-        aligned_transcription = self.transcribe_and_align(audio_path)
-        mood_tags = self.analyze_mood(audio_path)
-        return aligned_transcription, mood_tags
+    def detect_beats(self):
+        y, sr = librosa.load(self.audio_path)
+        tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
+        self.beats = librosa.frames_to_time(beat_frames, sr=sr)
+        return self.beats.tolist()
+
+    def detect_gaps_and_moods(self, silence_threshold=1.0):
+        lyrics_map = []
+        last_end = 0.0
+        for seg in self.transcription:
+            start, end, text = seg['start'], seg['end'], seg['text'].strip()
+            if start - last_end > silence_threshold:
+                lyrics_map.append({
+                    'start': last_end,
+                    'end': start,
+                    'type': 'instrumental',
+                    'mood': 'ambient',
+                    'prompt': 'Biblical scenery reacting to music tempo'
+                })
+            lyrics_map.append({
+                'start': start,
+                'end': end,
+                'type': 'lyrical',
+                'text': text,
+                'prompt': f"Visualize: {text}",
+                'mood': 'dynamic'
+            })
+            last_end = end
+        return lyrics_map
+
+    def export_lyrics_map(self, lyrics_map, out_path='lyrics_map.json'):
+        with open(out_path, 'w') as f:
+            json.dump(lyrics_map, f, indent=2)
+        return out_path
