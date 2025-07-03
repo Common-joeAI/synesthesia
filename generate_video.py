@@ -1,7 +1,6 @@
 import os
 import json
 from pathlib import Path
-import numpy as np
 import musicnn.extractor as extractor
 
 def extract_mood_genre(mp3_path):
@@ -24,6 +23,12 @@ def generate_scene_prompts(tags):
         })
     return prompts
 
+def generate_scene_video(prompt, output_path):
+    print(f"🎬 Generating video for prompt: '{prompt}'")
+    with open(output_path, "wb") as f:
+        f.write(b"FAKE_VIDEO_BYTES")  # Replace with real model logic or API call
+    print(f"✅ Saved to {output_path}")
+
 def run_generation(creds):
     mp3_path = "./input/track.mp3"
     if not os.path.exists(mp3_path):
@@ -36,13 +41,10 @@ def run_generation(creds):
     with open("video_plan.json", "w") as f:
         json.dump(scene_prompts, f, indent=2)
 
-    print("🎥 Generating video scenes (simulated)...")
     os.makedirs("output", exist_ok=True)
     for scene in scene_prompts:
         scene_path = f"output/scene_{scene['timestamp']:03d}.mp4"
-        with open(scene_path, "wb") as f:
-            f.write(b"FAKE_VIDEO_DATA")
-        print(f"✅ {scene_path}")
+        generate_scene_video(scene['prompt'], scene_path)
 
     print("🎞️ Stitching intro + scenes + outro with ffmpeg (simulated)...")
     print("✅ Final video exported to 'output/WhereYouGoIWillGo_FINAL.mp4'")
