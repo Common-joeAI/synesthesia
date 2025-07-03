@@ -1,31 +1,34 @@
-import os
-import logging
 
-def analyze_audio(audio_path):
-    # Placeholder: Real mood/beat analysis would use musicnn or librosa
-    return {"bpm": 120, "mood": "hopeful", "segments": []}
+import json
+from typing import List, Dict
 
+def detect_mood(audio_path: str) -> str:
+    # Stub for mood detection (replace with musicnn)
+    return "uplifting"
 
-def align_lyrics(lyrics_path):
-    with open(lyrics_path, 'r') as f:
-        lines = f.readlines()
-    return [{"start": i*5, "end": (i+1)*5, "text": line.strip()} for i, line in enumerate(lines)]
-
-
-def build_scene_prompts(segments, mood):
+def generate_prompts(lyrics_map: List[Dict], mood: str) -> List[Dict]:
     prompts = []
-    for seg in segments:
+    for entry in lyrics_map:
+        prompt = f"{mood} biblical scene: {entry['line']}"
         prompts.append({
-            "start_time": seg["start"],
-            "end_time": seg["end"],
-            "lyrics": seg["text"],
-            "prompt": f"Biblical scene, {mood} mood, related to: {seg['text']}"
+            "start_time": entry["start"],
+            "end_time": entry["end"],
+            "prompt": prompt[:77],
+            "transition": "fade"
         })
     return prompts
 
-
-def generate_frames(prompt_list, model_path):
-    for i, prompt in enumerate(prompt_list):
-        logging.info(f"Generating frame for: {prompt['prompt']} (from {prompt['start_time']}s)")
-        # Placeholder: Real frame generation with T2V model or ComfyUI API call
-    return True
+def build_video_plan(audio_meta: Dict, lyrics_map: List[Dict], output_path: str):
+    mood = detect_mood(audio_meta["audio_path"])
+    segments = generate_prompts(lyrics_map, mood)
+    video_plan = {
+        "metadata": audio_meta,
+        "segments": segments,
+        "style_settings": {
+            "color_palette": "warm",
+            "visual_intensity": 0.8,
+            "biblical_era": "judges"
+        }
+    }
+    with open(output_path, 'w') as f:
+        json.dump(video_plan, f, indent=2)
